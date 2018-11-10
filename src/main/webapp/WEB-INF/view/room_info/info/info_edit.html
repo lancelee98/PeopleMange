@@ -1,0 +1,46 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <input type="hidden" id="roomId" value="${item.roomId}">
+            <input type="hidden" id="type_val" value="${item.type}">
+            <input type="hidden" id="paremtId_val" value="${item.parentId}">
+            <input type="hidden" id="address" value="${item.address}">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                    <#input id="name" name="名称" underline="true" value="${item.name}"/>
+                    <#select id="type" name="类型" >
+                    @if(item.type==0){
+                    <option value="0" selected="selected">区域</option>
+                    <option value="1">房间</option>
+                    @}
+                    @if(item.type==1){
+                    <option value="0" >区域</option>
+                    <option value="1" selected="selected">房间</option>
+                    @}
+                </#select>
+                </div>
+
+                <div class="col-sm-6">
+                    <#input id="deviceSel" name="父节点" readonly="readonly" hidden="parentId"
+                    hiddenValue="${item.parentId}" value="${pName}"
+                    clickFun="InfoInfoDlg.showDeviceSelectTree(); return false;"
+                    style="background-color: #ffffff !important;"/>
+                </div>
+            </div>
+        <div id="menuContent" class="menuContent"
+             style="display: none; position: absolute; z-index: 200;">
+            <ul id="deviceTree" class="ztree tree-box" style="width: 249px !important;"></ul>
+        </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="InfoInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="InfoInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/room_info/info/info_info.js"></script>
+@}

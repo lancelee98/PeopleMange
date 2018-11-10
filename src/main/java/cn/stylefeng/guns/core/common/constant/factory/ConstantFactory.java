@@ -22,12 +22,14 @@ import cn.stylefeng.guns.core.common.constant.cache.CacheKey;
 import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import cn.stylefeng.guns.core.common.constant.state.MenuStatus;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.modular.room_info.service.impl.InfoServiceImpl;
 import cn.stylefeng.guns.modular.system.dao.*;
 import cn.stylefeng.guns.modular.system.model.*;
 import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -167,6 +169,12 @@ public class ConstantFactory implements IConstantFactory {
             }
         }
         return StrUtil.removeSuffix(sb.toString(), ",");
+    }
+    @Autowired private InfoServiceImpl infoService;
+    @Override
+    public String getRoomName(Integer roomId) {
+        Info info=infoService.selectById(roomId);
+        return info.getName();
     }
 
     /**
