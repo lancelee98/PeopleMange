@@ -33,7 +33,6 @@ public class Notice extends Model<Notice> {
     /**
      * 类型
      */
-    private Integer type;
     /**
      * 内容
      */
@@ -62,14 +61,6 @@ public class Notice extends Model<Notice> {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public String getContent() {
@@ -106,7 +97,6 @@ public class Notice extends Model<Notice> {
         return "Notice{" +
                 "id=" + id +
                 ", title=" + title +
-                ", type=" + type +
                 ", content=" + content +
                 ", createtime=" + createtime +
                 ", creater=" + creater +

@@ -31,7 +31,7 @@ public class TreeTool {
                 while(it.hasNext()){
                     Integer n=it.next();
                     //如果父节点（即Map的value）为需要删除的节点，则记录此节点，并在Map中删除
-                    if(t.get(n)==s){
+                    if(s.equals(t.get(n))){
                         temp.add(n);
                         it.remove();
                         returnList.add(n);

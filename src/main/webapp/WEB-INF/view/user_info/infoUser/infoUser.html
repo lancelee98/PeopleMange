@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>用户信息管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="InfoUser.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="InfoUserTableToolbar" role="group">
+                            @if(shiro.hasPermission("/infoUser/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="InfoUser.openAddInfoUser()"/>
+                            @}
+                            @if(shiro.hasPermission("/infoUser/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="InfoUser.openInfoUserDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/infoUser/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="InfoUser.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="InfoUserTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/user_info/infoUser/infoUser.js"></script>
+@}

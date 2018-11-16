@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.AffairMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.Affair">
+        <id column="affair_id" property="affairId" />
+        <result column="id_number" property="idNumber" />
+        <result column="admin_id" property="adminId" />
+        <result column="creat_time" property="creatTime" />
+        <result column="content" property="content" />
+        <result column="image_link" property="imageLink" />
+        <result column="receipt" property="receipt" />
+        <result column="solved" property="solved" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        affair_id, id_number, admin_id, creat_time, content, image_link, receipt, solved
+    </sql>
+
+</mapper>

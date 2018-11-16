@@ -1,7 +1,7 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="nav-close"><i class="fa fa-times-circle"></i>
     </div>
-    <div class="sidebar-collapse">
+    <div class="sidebar-collapse bg_color">
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
@@ -26,47 +26,47 @@
                         </li>
                     </ul>
                 </div>
-                <div class="logo-element">GS
+                <div class="logo-element">HS
                 </div>
             </li>
-            
+
             @for(title in titles){
-                @if(tool.isEmpty(title.children)){
+            @if(tool.isEmpty(title.children)){
+            <li>
+                <a class="J_menuItem" href="${ctxPath}${title.url}" name="tabMenuItem">
+                    <i class="fa ${title.icon}"></i>
+                    <span class="nav-label">${title.name}</span>
+                </a>
+            </li>
+            @}else{
+            <li>
+                <a href="#">
+                    <i class="fa ${title.icon}"></i>
+                    <span class="nav-label">${title.name}</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    @for(subTitle in title.children){
+                    @if(tool.isEmpty(subTitle.children)){
                     <li>
-                        <a class="J_menuItem" href="${ctxPath}${title.url}" name="tabMenuItem">
-                            <i class="fa ${title.icon}"></i>
-                            <span class="nav-label">${title.name}</span>
-                        </a>
+                        <a class="J_menuItem" href="${ctxPath}${subTitle.url}" name="tabMenuItem">${subTitle.name}</a>
                     </li>
-                @}else{
+                    @}else{
                     <li>
-                        <a href="#">
-                            <i class="fa ${title.icon}"></i>
-                            <span class="nav-label">${title.name}</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            @for(subTitle in title.children){
-                                @if(tool.isEmpty(subTitle.children)){
-                                    <li>
-                                        <a class="J_menuItem" href="${ctxPath}${subTitle.url}" name="tabMenuItem">${subTitle.name}</a>
-                                    </li>
-                                @}else{
-                                    <li>
-                                        <a href="#">${subTitle.name} <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                            @for(thirdTitle in subTitle.children){
-                                            <li>
-                                                <a class="J_menuItem" href="${ctxPath}${thirdTitle.url}" name="tabMenuItem">${thirdTitle.name}</a>
-                                            </li>
-                                            @}
-                                        </ul>
-                                    </li>
-                                @}
+                        <a href="#">${subTitle.name} <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            @for(thirdTitle in subTitle.children){
+                            <li>
+                                <a class="J_menuItem" href="${ctxPath}${thirdTitle.url}" name="tabMenuItem">${thirdTitle.name}</a>
+                            </li>
                             @}
                         </ul>
                     </li>
-                @}
+                    @}
+                    @}
+                </ul>
+            </li>
+            @}
             @}
 
         </ul>
