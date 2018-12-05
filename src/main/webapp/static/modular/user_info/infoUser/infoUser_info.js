@@ -2,7 +2,97 @@
  * 初始化用户信息详情对话框
  */
 var InfoUserInfoDlg = {
-    infoUserInfoData : {}
+    infoUserInfoData : {},
+    validateFields: {
+        idNumber: {
+            validators: {
+                notEmpty: {
+                    message: '身份证号码不能为空'
+                },
+                stringLength: {
+                    min:18,
+                    max:18,
+                    message: '格式错误'
+                }
+            }
+
+        },
+        name: {
+            validators: {
+                notEmpty: {
+                    message: '姓名不能为空'
+                },
+                stringLength: {
+                    max:20,
+                    message: '格式错误'
+                }
+            }
+        },
+        gender: {
+            validators: {
+                notEmpty: {
+                    message: '性别不能为空'
+                }
+            }
+        },
+        deviceSel: {
+            validators: {
+                notEmpty: {
+                    message: '房间不能为空'
+                }
+            }
+        },
+        phone: {
+            validators: {
+                notEmpty: {
+                    message: '电话不能为空'
+                },
+                stringLength: {
+                    min:7,
+                    max:11,
+                    message: '格式错误'
+                }
+            }
+        },
+        age: {
+            validators: {
+                notEmpty: {
+                    message: '年龄不能为空'
+                },
+                stringLength: {
+                    max:3,
+                    message: '格式错误'
+                }
+            }
+        },
+        passwd: {
+            validators: {
+                notEmpty: {
+                    message: '手机登录密码不能为空'
+                },
+                identical: {
+                    field: 'rePassword',
+                    message: '两次密码不一致'
+                },
+                stringLength: {
+                    min:6,
+                    max:25,
+                    message: '格式错误'
+                }
+            }
+        },
+        rePassword: {
+            validators: {
+                notEmpty: {
+                    message: '重复密码不能为空'
+                },
+                identical: {
+                    field: 'passwd',
+                    message: '两次密码不一致'
+                },
+            }
+        }
+    }
 };
 
 /**
@@ -57,6 +147,15 @@ InfoUserInfoDlg.collectData = function() {
 }
 
 /**
+ * 验证数据是否为空
+ */
+InfoUserInfoDlg.validate = function () {
+    $('#InfoUserInfoDlgForm').data("bootstrapValidator").resetForm();
+    $('#InfoUserInfoDlgForm').bootstrapValidator('validate');
+    return $("#InfoUserInfoDlgForm").data('bootstrapValidator').isValid();
+}
+
+/**
  * 提交添加
  */
 InfoUserInfoDlg.addSubmit = function() {
@@ -64,6 +163,9 @@ InfoUserInfoDlg.addSubmit = function() {
     this.clearData();
     this.collectData();
 
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/infoUser/add", function(data){
         Feng.success("添加成功!");
@@ -84,6 +186,9 @@ InfoUserInfoDlg.editSubmit = function() {
     this.clearData();
     this.collectData();
 
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/infoUser/update", function(data){
         Feng.success("修改成功!");
@@ -95,7 +200,43 @@ InfoUserInfoDlg.editSubmit = function() {
     ajax.set(this.infoUserInfoData);
     ajax.start();
 }
+InfoUserInfoDlg.onClickTree = function (e, treeId, treeNode) {
+    $("#deviceSel").attr("value", instance.getSelectedVal());
+    $("#roomId").attr("value", treeNode.id);
+};
+InfoUserInfoDlg.showDeviceSelectTree = function () {
+    var deviceObj = $("#deviceSel");
+    var deviceOffset = $("#deviceSel").offset();
+    $("#menuContent").css({
+        left: deviceOffset.left + "px",
+        top: deviceOffset.top + deviceObj.outerHeight() + "px"
+    }).slideDown("fast");
+
+    $("body").bind("mousedown", onBodyDown);
+};
+
+
+
+/**
+ * 隐藏部门选择的树
+ */
+InfoUserInfoDlg.hideDeviceSelectTree = function () {
+    $("#menuContent").fadeOut("fast");
+    $("body").unbind("mousedown", onBodyDown);// mousedown当鼠标按下就可以触发，不用弹起
+};
+
+function onBodyDown(event) {
+    if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(
+        event.target).parents("#menuContent").length > 0)) {
+        InfoUserInfoDlg.hideDeviceSelectTree();
+    }
+}
 
 $(function() {
-
+    Feng.initValidator("InfoUserInfoDlgForm", InfoUserInfoDlg.validateFields);
+    $("#gender").val($("#genderValue").val());
+    var ztree = new $ZTree("deviceTree", "/info/tree");
+    ztree.bindOnClick(InfoUserInfoDlg.onClickTree);
+    ztree.init();
+    instance = ztree;
 });

@@ -29,4 +29,9 @@ public class InfoServiceImpl extends ServiceImpl<InfoMapper, Info> implements II
     public List<Map<String, Object>> list(String condition) {
         return this.baseMapper.list(condition);
     }
+
+    @Override
+    public  List<Info>  getChild(Integer condition) {
+        return this.baseMapper.getChild(condition);
+    }
 }

@@ -20,4 +20,6 @@ public interface InfoMapper extends BaseMapper<Info> {
     List<ZTreeNode> tree();
 
     List<Map<String, Object>> list(@Param("condition") String conditiion);
+
+    List<Info> getChild(@Param("condition") Integer conditiion);
 }

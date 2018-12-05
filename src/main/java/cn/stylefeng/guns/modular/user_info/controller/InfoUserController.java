@@ -1,5 +1,8 @@
 package cn.stylefeng.guns.modular.user_info.controller;
 
+import cn.stylefeng.guns.modular.system.model.Info;
+import cn.stylefeng.guns.modular.system.warpper.DictWarpper;
+import cn.stylefeng.guns.modular.system.warpper.InfoUserWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,9 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.InfoUser;
 import cn.stylefeng.guns.modular.user_info.service.IInfoUserService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户信息控制器
@@ -26,6 +32,8 @@ public class InfoUserController extends BaseController {
 
     @Autowired
     private IInfoUserService infoUserService;
+    @Autowired
+    private IInfoUserService iInfoUserService;
 
     /**
      * 跳转到用户信息首页
@@ -51,6 +59,9 @@ public class InfoUserController extends BaseController {
         InfoUser infoUser = infoUserService.selectById(infoUserId);
         model.addAttribute("item",infoUser);
         LogObjectHolder.me().set(infoUser);
+        if(infoUser.getRoomId()!=0)
+            model.addAttribute("pName", iInfoUserService.selectById(infoUser.getRoomId()).getName());
+        else    model.addAttribute("pName","顶级");
         return PREFIX + "infoUser_edit.html";
     }
 
@@ -59,8 +70,10 @@ public class InfoUserController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(String condition) {
-        return infoUserService.selectList(null);
+    public Object list(String condition)
+    {
+        List<Map<String, Object>> list=infoUserService.list(condition);
+        return super.warpObject(new InfoUserWarpper(list));
     }
 
     /**

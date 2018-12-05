@@ -16,13 +16,21 @@ InfoUser.initColumn = function () {
         {field: 'selectItem', radio: true},
             {title: '身份证号码', field: 'idNumber', visible: true, align: 'center', valign: 'middle'},
             {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle'},
-            {title: '性别', field: 'gender', visible: true, align: 'center', valign: 'middle'},
+            {title: '性别', field: 'gender', visible: true, align: 'center', valign: 'middle',width:'50px',
+                formatter: function(value,row,index){
+                    if(row.gender==true)
+                    return '男';
+                    else if(row.gender==false)
+                        return "女"
+                }
+            },
             {title: '电话', field: 'phone', visible: true, align: 'center', valign: 'middle'},
-            {title: '年龄', field: 'age', visible: true, align: 'center', valign: 'middle'},
-            {title: '民族', field: 'race', visible: true, align: 'center', valign: 'middle'},
-            {title: '职业', field: 'job', visible: true, align: 'center', valign: 'middle'},
-            {title: '区域标识号', field: 'roomId', visible: true, align: 'center', valign: 'middle'},
-            {title: '手机登录密码', field: 'passwd', visible: true, align: 'center', valign: 'middle'}
+            {title: '年龄', field: 'age', visible: true, align: 'center', valign: 'middle',width:'50px',},
+            {title: '民族', field: 'race', visible: false, align: 'center', valign: 'middle'},
+            {title: '职业', field: 'job', visible: false, align: 'center', valign: 'middle'},
+            {title: '房间名', field: 'roomAdress', visible: true, align: 'center', valign: 'middle'},
+            {title: '区域标识号', field: 'roomId', visible: false, align: 'center', valign: 'middle'},
+            {title: '手机登录密码', field: 'passwd', visible: false, align: 'center', valign: 'middle'}
     ];
 };
 

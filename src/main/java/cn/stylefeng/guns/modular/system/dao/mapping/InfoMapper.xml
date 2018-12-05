@@ -18,13 +18,20 @@
 
     <select id="tree" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
 		select room_id as id,parent_id as pId,name
-	    from room_info
+	    from info_room
 	</select>
 
     <select id="list" resultType="map">
-        select * from room_info
+        select * from info_room
         <if test="condition != null and condition != ''">
-            where name like CONCAT('%',#{condition},'%')
+            where address like CONCAT('%',#{condition},'%')
+        </if>
+    </select>
+
+    <select id="getChild" resultType="cn.stylefeng.guns.modular.system.model.Info">
+        select * from info_room
+        <if test="condition != null">
+            where parent_id =#{condition}
         </if>
     </select>
 

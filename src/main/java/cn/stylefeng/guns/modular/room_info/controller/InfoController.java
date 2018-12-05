@@ -18,7 +18,7 @@ import cn.stylefeng.guns.modular.room_info.service.IInfoService;
 
 import java.util.List;
 import java.util.Map;
-
+import static cn.stylefeng.guns.core.common.constant.factory.MutiStrFactory.*;
 /**
  * 住房管理控制器
  *
@@ -113,7 +113,15 @@ public class InfoController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public Object update(Info info) {
+        Info oldinfo=infoService.selectById(info.getRoomId());
+        String name=info.getName();
+        String oldaddress=oldinfo.getAddress();
+        String newaddress;
+        if(info.getParentId()==0)newaddress=name;
+        else newaddress=oldaddress.substring(0,oldaddress.length()-oldinfo.getName().length())+name;
+        info.setAddress(newaddress);
         infoService.updateById(info);
+        ChangeChildAddress(newaddress,oldaddress,info.getRoomId());
         return SUCCESS_TIP;
     }
 

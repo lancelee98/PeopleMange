@@ -1,22 +1,26 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-        <div class="form-horizontal">
-
+        <div class="form-horizontal" id="InfoUserInfoDlgForm">
+            <input type="hidden" id="genderValue" value="${item.gender}">
+            <input type="hidden" id="roomId" value="${item.roomId}">
             <div class="row">
                 <div class="col-sm-6 b-r">
-                            <#input id="idNumber" name="身份证号码" value="${item.idNumber}" underline="true"/>
-                            <#input id="name" name="姓名" value="${item.name}" underline="true"/>
-                            <#input id="gender" name="性别" value="${item.gender}" underline="true"/>
-                            <#input id="phone" name="电话" value="${item.phone}" underline="true"/>
-                            <#input id="age" name="年龄" value="${item.age}" />
+                    <#input id="id_number" name="身份证号码" value="${item.idNumber}" underline="true"/>
+                    <#input id="name" name="姓名" value="${item.name}" underline="true"/>
+                    <#input id="gender" name="性别" value="${item.gender}" underline="true"/>
+                    <#input id="phone" name="电话" value="${item.phone}" underline="true"/>
+                    <#input id="age" name="年龄" value="${item.age}" />
                 </div>
 
                 <div class="col-sm-6">
-                            <#input id="race" name="民族" value="${item.race}" underline="true"/>
-                            <#input id="job" name="职业" value="${item.job}" underline="true"/>
-                            <#input id="roomId" name="区域标识号" value="${item.roomId}" underline="true"/>
-                            <#input id="passwd" name="手机登录密码" value="${item.passwd}" />
+                    <#input id="race" name="民族" value="${item.race}" underline="true"/>
+                    <#input id="job" name="职业" value="${item.job}" underline="true"/>
+                    <#input id="deviceSel" name="房间" readonly="readonly" hidden="roomId"
+                    hiddenValue="${item.roomId}" value="${pName}"
+                    clickFun="InfoInfoDlg.showDeviceSelectTree(); return false;"
+                    style="background-color: #ffffff !important;"/>
+                    <#input id="passwd" name="手机登录密码" value="${item.passwd}" />
                 </div>
             </div>
 

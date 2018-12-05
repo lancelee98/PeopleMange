@@ -247,6 +247,20 @@ public class ConstantFactory implements IConstantFactory {
         }
     }
 
+    @Override
+    public String getRoomAddress(Integer id) {
+        if (ToolUtil.isEmpty(id)) {
+            return "";
+        } else {
+            Info info = infoService.selectById(id);
+            if (info == null) {
+                return "";
+            } else {
+                return info.getAddress();
+            }
+        }
+    }
+
     /**
      * 根据字典名称和字典中的值获取对应的名称
      */

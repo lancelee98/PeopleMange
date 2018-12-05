@@ -23,4 +23,6 @@ public interface IInfoService extends IService<Info> {
     List<ZTreeNode> tree();
 
     List<Map<String, Object>> list(@Param("condition") String condition);
+
+    List<Info>  getChild(@Param("condition") Integer condition);
 }

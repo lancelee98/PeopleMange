@@ -20,4 +20,10 @@
         id_number, name, gender, phone, age, race, job, room_id, passwd
     </sql>
 
+    <select id="list" resultType="map">
+        select id_number as idNumber,name,gender,phone,age,race,job,room_id as roomId,passwd  from info_user
+        <if test="condition != null and condition != ''">
+            where name like CONCAT('%',#{condition},'%') or id_number like CONCAT('%',#{condition},'%')
+        </if>
+    </select>
 </mapper>

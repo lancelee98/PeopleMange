@@ -98,6 +98,7 @@ public interface IConstantFactory {
      */
     String getDictsByName(String name, Integer val);
 
+    String getRoomAddress(Integer id);
     /**
      * 获取性别名称
      */

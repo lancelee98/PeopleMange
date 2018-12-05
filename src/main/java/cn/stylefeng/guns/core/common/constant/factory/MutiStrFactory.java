@@ -16,8 +16,13 @@
 package cn.stylefeng.guns.core.common.constant.factory;
 
 import cn.hutool.core.util.StrUtil;
+import cn.stylefeng.guns.modular.room_info.service.IInfoService;
+import cn.stylefeng.guns.modular.system.model.Info;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +34,18 @@ import java.util.Map;
  * @author fengshuonan
  * @date 2017-04-27 16:42
  */
+@Component
 public class MutiStrFactory {
 
+    @Autowired
+    private IInfoService iInfoService;
+    private static MutiStrFactory mutiStrFactory;
+
+    @PostConstruct
+    public void init() {
+        mutiStrFactory = this;
+        mutiStrFactory.iInfoService = this.iInfoService;
+    }
     /**
      * 每个条目之间的分隔符
      */
@@ -67,6 +82,7 @@ public class MutiStrFactory {
      * @author fengshuonan
      * @Date 2017/4/27 16:44
      */
+
     public static List<Map<String, String>> parseKeyValue(String mutiString) {
         if (ToolUtil.isEmpty(mutiString)) {
             return new ArrayList<>();
@@ -83,5 +99,21 @@ public class MutiStrFactory {
             }
             return results;
         }
+    }
+    public static void ChangeChildAddress(String newParentAdress,String oldParentAdress,Integer pid)
+    {
+        try {
+            List<Info> childs=mutiStrFactory.iInfoService.getChild(pid);
+            if(childs==null) return;
+            for (Info child:childs){
+                String oldAdress=child.getAddress();
+                int oldAdressLength=oldAdress.length();
+                String newAdress=newParentAdress+oldAdress.substring(oldParentAdress.length(),oldAdressLength);
+                child.setAddress(newAdress);
+                child.updateById();
+                ChangeChildAddress(newAdress,oldAdress,child.getRoomId());
+            }
+        }
+        catch (Exception e){e.printStackTrace();return;}
     }
 }
