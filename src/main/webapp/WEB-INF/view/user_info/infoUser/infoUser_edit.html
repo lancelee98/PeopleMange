@@ -8,6 +8,10 @@
                 <div class="col-sm-6 b-r">
                     <#input id="id_number" name="身份证号码" value="${item.idNumber}" underline="true"/>
                     <#input id="name" name="姓名" value="${item.name}" underline="true"/>
+                    <#select id="gender" name="性别*" underline="true">
+                    <option value="1">男</option>
+                    <option value="0">女</option>
+                </#select>
                     <#input id="gender" name="性别" value="${item.gender}" underline="true"/>
                     <#input id="phone" name="电话" value="${item.phone}" underline="true"/>
                     <#input id="age" name="年龄" value="${item.age}" />

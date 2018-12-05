@@ -4,7 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.InfoUser">
-        <id column="id_number" property="idNumber" />
+        <id column="id" property="id" />
+        <result column="id_number" property="idNumber" />
         <result column="name" property="name" />
         <result column="gender" property="gender" />
         <result column="phone" property="phone" />
@@ -21,7 +22,7 @@
     </sql>
 
     <select id="list" resultType="map">
-        select id_number as idNumber,name,gender,phone,age,race,job,room_id as roomId,passwd  from info_user
+        select id,id_number as idNumber,name,gender,phone,age,race,job,room_id as roomId,passwd  from info_user
         <if test="condition != null and condition != ''">
             where name like CONCAT('%',#{condition},'%') or id_number like CONCAT('%',#{condition},'%')
         </if>

@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.modular.user_info.controller;
 
+import cn.stylefeng.guns.modular.room_info.service.IInfoService;
 import cn.stylefeng.guns.modular.system.model.Info;
 import cn.stylefeng.guns.modular.system.warpper.DictWarpper;
 import cn.stylefeng.guns.modular.system.warpper.InfoUserWarpper;
@@ -51,6 +52,7 @@ public class InfoUserController extends BaseController {
         return PREFIX + "infoUser_add.html";
     }
 
+    @Autowired private IInfoService iInfoService;
     /**
      * 跳转到修改用户信息
      */
@@ -60,7 +62,7 @@ public class InfoUserController extends BaseController {
         model.addAttribute("item",infoUser);
         LogObjectHolder.me().set(infoUser);
         if(infoUser.getRoomId()!=0)
-            model.addAttribute("pName", iInfoUserService.selectById(infoUser.getRoomId()).getName());
+            model.addAttribute("pName", iInfoService.selectById(infoUser.getRoomId()).getName());
         else    model.addAttribute("pName","顶级");
         return PREFIX + "infoUser_edit.html";
     }

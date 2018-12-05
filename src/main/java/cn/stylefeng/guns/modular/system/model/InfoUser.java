@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -19,10 +21,16 @@ public class InfoUser extends Model<InfoUser> {
 
     private static final long serialVersionUID = 1L;
 
+
+    /**
+     * 主键id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
     /**
      * 身份证号码
      */
-    @TableId("id_number")
+    @TableField("id_number")
     private String idNumber;
     /**
      * 姓名

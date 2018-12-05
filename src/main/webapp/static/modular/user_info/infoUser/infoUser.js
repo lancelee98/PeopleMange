@@ -14,6 +14,7 @@ var InfoUser = {
 InfoUser.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
+            {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
             {title: '身份证号码', field: 'idNumber', visible: true, align: 'center', valign: 'middle'},
             {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle'},
             {title: '性别', field: 'gender', visible: true, align: 'center', valign: 'middle',width:'50px',
