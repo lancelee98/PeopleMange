@@ -9,14 +9,14 @@
         <result column="admin_id" property="adminId" />
         <result column="creat_time" property="creatTime" />
         <result column="content" property="content" />
-        <result column="image_link" property="imageLink" />
+        <result column="title" property="title" />
         <result column="receipt" property="receipt" />
         <result column="solved" property="solved" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        affair_id, id_number, admin_id, creat_time, content, image_link, receipt, solved
+        affair_id, id_number, admin_id, creat_time, content, title, receipt, solved
     </sql>
 
 </mapper>

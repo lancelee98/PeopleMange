@@ -14,14 +14,40 @@ var Affair = {
 Affair.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '事务id', field: 'affairId', visible: true, align: 'center', valign: 'middle'},
-            {title: '身份证号码', field: 'idNumber', visible: true, align: 'center', valign: 'middle'},
-            {title: '管理员编号', field: 'adminId', visible: true, align: 'center', valign: 'middle'},
-            {title: '请求时间', field: 'creatTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '具体内容', field: 'content', visible: true, align: 'center', valign: 'middle'},
-            {title: '图片描述', field: 'imageLink', visible: true, align: 'center', valign: 'middle'},
-            {title: '回执内容', field: 'receipt', visible: true, align: 'center', valign: 'middle'},
-            {title: '是否解决', field: 'solved', visible: true, align: 'center', valign: 'middle'}
+        {title: 'id', field: 'affairId', visible: false, align: 'center', valign: 'middle'},
+        {title: '标题', field: 'title', visible: true, align: 'center', valign: 'middle'},
+        {
+            title: '内容', field: 'affairId',visible: true, align: 'center', valign: 'middle',
+            formatter: function (value, row, index) {
+                value = '<div style="text-align: center;color: #23a523" onclick="Affair.seeDetails(\''+ row.affairId +'\')" ><a>查看内容</a></div>';
+                return value;
+            }
+        },
+        {
+            title: '回执', field: 'affairId',visible: true, align: 'center', valign: 'middle',
+            formatter: function (value, row, index) {
+                value = '<div style="text-align: center;color: #23a523" onclick="Affair.seeDetails(\''+ row.affairId +'\')" ><a>查看回执</a></div>';
+                return value;
+            }
+        },
+        {title: '请求时间', field: 'creatTime', visible: true, align: 'center', valign: 'middle'},
+        {title: '发起人', field: 'idNumber', visible: true, align: 'center', valign: 'middle'},
+        {title: '解决人', field: 'adminId', visible: true, align: 'center', valign: 'middle'},
+        {title: '是否解决', field: 'solved', visible: true, align: 'center', valign: 'middle',
+            formatter: function(value,row,index){
+                if(row.solved==true)
+                {
+                    value='<div style="text-align: center;color: #23a523" >已解决</div>';
+                }
+                else if(row.solved==false)
+                {
+                    value='<div style="text-align: center;color: #dc0000" >未解决</div>';
+                }
+                else {
+                    value='';
+                }
+                return value ;
+            }},
     ];
 };
 
@@ -51,9 +77,35 @@ Affair.openAddAffair = function () {
         maxmin: true,
         content: Feng.ctxPath + '/affair/affair_add'
     });
+    layer.full(index);
     this.layerIndex = index;
 };
-
+Affair.seeDetails=function(id)
+{
+    console.log(id);
+    var index = layer.open({
+        type: 2,
+        title: '事物管理详情',
+        area: ['800px', '420px'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '/affair/content/' + id
+    });
+    this.layerIndex = index;
+}
+Affair.seeReceipt=function(id)
+{
+    console.log(id);
+    var index = layer.open({
+        type: 2,
+        title: '事物管理详情',
+        area: ['800px', '420px'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '/affair/content2/' + id
+    });
+    this.layerIndex = index;
+}
 /**
  * 打开查看事物管理详情
  */
@@ -65,7 +117,7 @@ Affair.openAffairDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/affair/affair_update/' + Affair.seItem.id
+            content: Feng.ctxPath + '/affair/content/' + Affair.seItem.id
         });
         this.layerIndex = index;
     }
@@ -101,4 +153,5 @@ $(function () {
     var table = new BSTable(Affair.id, "/affair/list", defaultColunms);
     table.setPaginationType("client");
     Affair.table = table.init();
+
 });

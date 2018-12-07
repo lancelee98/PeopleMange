@@ -113,6 +113,7 @@ public class NoticeController extends BaseController {
         }
         notice.setCreater(ShiroKit.getUser().getId());
         notice.setCreatetime(new Date());
+        System.out.println("mylc"+notice.getContent());
         notice.insert();
         return SUCCESS_TIP;
     }

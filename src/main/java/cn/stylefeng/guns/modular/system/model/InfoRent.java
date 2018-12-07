@@ -29,7 +29,7 @@ public class InfoRent extends Model<InfoRent> {
      * 发起人身份证号
      */
     @TableField("id_number")
-    private String idNumber;
+    private Integer idNumber;
     /**
      * 租用时间
      */
@@ -50,11 +50,11 @@ public class InfoRent extends Model<InfoRent> {
         this.carportId = carportId;
     }
 
-    public String getIdNumber() {
+    public Integer getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(String idNumber) {
+    public void setIdNumber(Integer idNumber) {
         this.idNumber = idNumber;
     }
 

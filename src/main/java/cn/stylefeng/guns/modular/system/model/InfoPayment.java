@@ -30,7 +30,7 @@ public class InfoPayment extends Model<InfoPayment> {
      * 缴费人身份证号码
      */
     @TableField("id_number")
-    private String idNumber;
+    private Integer idNumber;
     /**
      * 缴费类型
      */
@@ -53,11 +53,11 @@ public class InfoPayment extends Model<InfoPayment> {
         this.paymentId = paymentId;
     }
 
-    public String getIdNumber() {
+    public Integer getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(String idNumber) {
+    public void setIdNumber(Integer idNumber) {
         this.idNumber = idNumber;
     }
 

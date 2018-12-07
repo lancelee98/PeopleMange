@@ -31,9 +31,6 @@ public class Notice extends Model<Notice> {
      */
     private String title;
     /**
-     * 类型
-     */
-    /**
      * 内容
      */
     private String content;

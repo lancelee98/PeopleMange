@@ -2,7 +2,17 @@
  * 初始化事物管理详情对话框
  */
 var AffairInfoDlg = {
-    affairInfoData : {}
+    affairInfoData: {},
+    editor:null,
+    validateFields: {
+        title: {
+            validators: {
+                notEmpty: {
+                    message: '标题不能为空'
+                }
+            }
+        },
+    }
 };
 
 /**
@@ -44,16 +54,14 @@ AffairInfoDlg.close = function() {
  * 收集数据
  */
 AffairInfoDlg.collectData = function() {
-    this
-    .set('affairId')
-    .set('idNumber')
-    .set('adminId')
-    .set('creatTime')
-    .set('content')
-    .set('imageLink')
-    .set('receipt')
-    .set('solved');
+    this.affairInfoData['content'] = AffairInfoDlg.editor.txt.html();
+    this.set('title');
 }
+AffairInfoDlg.validate = function () {
+    $('#AffairInfoDlgForm').data("bootstrapValidator").resetForm();
+    $('#AffairInfoDlgForm').bootstrapValidator('validate');
+    return $("#AffairInfoDlgForm").data('bootstrapValidator').isValid();
+};
 
 /**
  * 提交添加
@@ -63,6 +71,9 @@ AffairInfoDlg.addSubmit = function() {
     this.clearData();
     this.collectData();
 
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/affair/add", function(data){
         Feng.success("添加成功!");
@@ -72,6 +83,7 @@ AffairInfoDlg.addSubmit = function() {
         Feng.error("添加失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.affairInfoData);
+    console.log(this.affairInfoData);
     ajax.start();
 }
 
@@ -83,6 +95,9 @@ AffairInfoDlg.editSubmit = function() {
     this.clearData();
     this.collectData();
 
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/affair/update", function(data){
         Feng.success("修改成功!");
@@ -96,5 +111,10 @@ AffairInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+    Feng.initValidator("AffairInfoDlgForm", AffairInfoDlg.validateFields);
+    //初始化编辑器
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.create();
+    AffairInfoDlg.editor = editor;
 });

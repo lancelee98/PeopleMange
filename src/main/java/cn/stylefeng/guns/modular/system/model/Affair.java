@@ -30,7 +30,7 @@ public class Affair extends Model<Affair> {
      * 身份证号码
      */
     @TableField("id_number")
-    private String idNumber;
+    private Integer idNumber;
     /**
      * 管理员编号
      */
@@ -48,8 +48,7 @@ public class Affair extends Model<Affair> {
     /**
      * 图片描述
      */
-    @TableField("image_link")
-    private String imageLink;
+    private String title;
     /**
      * 回执
 
@@ -70,11 +69,11 @@ public class Affair extends Model<Affair> {
         this.affairId = affairId;
     }
 
-    public String getIdNumber() {
+    public Integer getIdNumber() {
         return idNumber;
     }
 
-    public void setIdNumber(String idNumber) {
+    public void setIdNumber(Integer idNumber) {
         this.idNumber = idNumber;
     }
 
@@ -102,12 +101,12 @@ public class Affair extends Model<Affair> {
         this.content = content;
     }
 
-    public String getImageLink() {
-        return imageLink;
+    public String getTitle() {
+        return title;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setTitle(String imageLink) {
+        this.title = imageLink;
     }
 
     public String getReceipt() {
@@ -139,7 +138,7 @@ public class Affair extends Model<Affair> {
         ", adminId=" + adminId +
         ", creatTime=" + creatTime +
         ", content=" + content +
-        ", imageLink=" + imageLink +
+        ", imageLink=" + title +
         ", receipt=" + receipt +
         ", solved=" + solved +
         "}";
