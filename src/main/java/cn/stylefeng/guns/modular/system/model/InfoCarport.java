@@ -31,6 +31,15 @@ public class InfoCarport extends Model<InfoCarport> {
     @TableField("carport_loc")
     private String carportLoc;
 
+    private Integer isUsed;
+
+    public void setIsUsed(Integer isUsed) {
+        this.isUsed = isUsed;
+    }
+
+    public Integer getIsUsed() {
+        return isUsed;
+    }
 
     public Integer getCarportId() {
         return carportId;

@@ -91,12 +91,9 @@ public class Info extends Model<Info> {
 
     @Override
     public String toString() {
-        return "Info{" +
+        return "{" +
         ", roomId=" + roomId +
-        ", type=" + type +
-        ", name=" + name +
         ", address=" + address +
-        ", parentId=" + parentId +
         "}";
     }
 }

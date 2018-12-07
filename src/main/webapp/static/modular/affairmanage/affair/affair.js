@@ -26,13 +26,13 @@ Affair.initColumn = function () {
         {
             title: '回执', field: 'affairId',visible: true, align: 'center', valign: 'middle',
             formatter: function (value, row, index) {
-                value = '<div style="text-align: center;color: #23a523" onclick="Affair.seeDetails(\''+ row.affairId +'\')" ><a>查看回执</a></div>';
+                value = '<div style="text-align: center;color: #23a523" onclick="Affair.seeReceipt(\''+ row.affairId +'\')" ><a>查看回执</a></div>';
                 return value;
             }
         },
         {title: '请求时间', field: 'creatTime', visible: true, align: 'center', valign: 'middle'},
-        {title: '发起人', field: 'idNumber', visible: true, align: 'center', valign: 'middle'},
-        {title: '解决人', field: 'adminId', visible: true, align: 'center', valign: 'middle'},
+        {title: '发起人', field: 'creatorName', visible: true, align: 'center', valign: 'middle'},
+        {title: '解决人', field: 'adminName', visible: true, align: 'center', valign: 'middle'},
         {title: '是否解决', field: 'solved', visible: true, align: 'center', valign: 'middle',
             formatter: function(value,row,index){
                 if(row.solved==true)
@@ -71,7 +71,7 @@ Affair.check = function () {
 Affair.openAddAffair = function () {
     var index = layer.open({
         type: 2,
-        title: '添加事物管理',
+        title: '发起报修或投诉',
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
@@ -82,10 +82,9 @@ Affair.openAddAffair = function () {
 };
 Affair.seeDetails=function(id)
 {
-    console.log(id);
     var index = layer.open({
         type: 2,
-        title: '事物管理详情',
+        title: '内容',
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
@@ -95,10 +94,9 @@ Affair.seeDetails=function(id)
 }
 Affair.seeReceipt=function(id)
 {
-    console.log(id);
     var index = layer.open({
         type: 2,
-        title: '事物管理详情',
+        title: '回执',
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
@@ -113,11 +111,11 @@ Affair.openAffairDetail = function () {
     if (this.check()) {
         var index = layer.open({
             type: 2,
-            title: '事物管理详情',
+            title: '解决报修或投诉',
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/affair/content/' + Affair.seItem.id
+            content: Feng.ctxPath + '/affair/affair_add/' + Affair.seItem.affairId
         });
         this.layerIndex = index;
     }
@@ -134,7 +132,7 @@ Affair.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("affairId",this.seItem.id);
+        ajax.set("affairId",this.seItem.affairId);
         ajax.start();
     }
 };

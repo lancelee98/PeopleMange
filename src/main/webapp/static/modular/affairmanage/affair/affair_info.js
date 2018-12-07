@@ -12,6 +12,19 @@ var AffairInfoDlg = {
                 }
             }
         },
+        idNumber: {
+            validators: {
+                notEmpty: {
+                    message: '身份证号码不能为空'
+                },
+                stringLength: {
+                    min:18,
+                    max:18,
+                    message: '格式错误'
+                }
+            }
+
+        },
     }
 };
 
@@ -56,6 +69,10 @@ AffairInfoDlg.close = function() {
 AffairInfoDlg.collectData = function() {
     this.affairInfoData['content'] = AffairInfoDlg.editor.txt.html();
     this.set('title');
+    this.affairInfoData['receipt'] = $("#idNumber").val();
+}
+AffairInfoDlg.collectData2 = function() {
+    this.affairInfoData['receipt'] = AffairInfoDlg.editor.txt.html();
 }
 AffairInfoDlg.validate = function () {
     $('#AffairInfoDlgForm').data("bootstrapValidator").resetForm();
@@ -80,10 +97,28 @@ AffairInfoDlg.addSubmit = function() {
         window.parent.Affair.table.refresh();
         AffairInfoDlg.close();
     },function(data){
+        Feng.error("添加失败!请检查身份证号是否输入正确！");
+    });
+    ajax.set(this.affairInfoData);
+    ajax.start();
+}
+AffairInfoDlg.addSubmit2 = function() {
+
+    this.clearData();
+    this.collectData2();
+
+    if (!this.validate()) {
+        return;
+    }
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/affair/update/"+$("#id").val(), function(data){
+        Feng.success("添加成功!");
+        window.parent.Affair.table.refresh();
+        AffairInfoDlg.close();
+    },function(data){
         Feng.error("添加失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.affairInfoData);
-    console.log(this.affairInfoData);
     ajax.start();
 }
 

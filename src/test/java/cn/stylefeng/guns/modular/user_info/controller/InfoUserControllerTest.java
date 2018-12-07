@@ -19,9 +19,9 @@ public class InfoUserControllerTest {
     {
 
 //        //infoUserController.detail(1);
-//        String s="& lt;p& gt;安抚安抚& lt;/p& gt; ";
+//        String s="& lt;p& gt;安抚 安抚& lt;/p& gt; ";
 //        //s.replaceAll(" ", "&");
-//        s=s.replaceAll("\\s+", "");
+//        s=s.replaceAll("(&\\s)+", "&");
 //        System.out.println(s);
 //        String nescapeStr2 = StringEscapeUtils.unescapeXml(s);
 //        System.out.println(nescapeStr2);

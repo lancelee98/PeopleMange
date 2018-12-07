@@ -25,6 +25,7 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.modular.room_info.service.impl.InfoServiceImpl;
 import cn.stylefeng.guns.modular.system.dao.*;
 import cn.stylefeng.guns.modular.system.model.*;
+import cn.stylefeng.guns.modular.user_info.service.IInfoUserService;
 import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -53,11 +54,21 @@ public class ConstantFactory implements IConstantFactory {
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
-
+    private IInfoUserService iInfoUserService= SpringContextHolder.getBean(IInfoUserService.class);
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
     }
 
+
+    @Override
+    public String getCreatorNameById(Integer userId) {
+        InfoUser infoUser=iInfoUserService.selectById(userId);
+        if (infoUser != null) {
+            return infoUser.getName();
+        } else {
+            return "--";
+        }
+    }
     /**
      * 根据用户id获取用户名称
      *

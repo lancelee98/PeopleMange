@@ -2,6 +2,11 @@ package cn.stylefeng.guns.modular.affairmanage.controller;
 
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
+import cn.stylefeng.guns.modular.room_info.service.IInfoService;
+import cn.stylefeng.guns.modular.system.model.InfoUser;
+import cn.stylefeng.guns.modular.system.warpper.AffairWrapper;
+import cn.stylefeng.guns.modular.system.warpper.InfoUserWarpper;
+import cn.stylefeng.guns.modular.user_info.service.IInfoUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
@@ -18,6 +23,9 @@ import cn.stylefeng.guns.modular.system.model.Affair;
 import cn.stylefeng.guns.modular.affairmanage.service.IAffairService;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 事物管理控制器
@@ -46,7 +54,8 @@ public class AffairController extends BaseController {
      * 跳转到添加事物管理
      */
     @RequestMapping("/affair_add")
-    public String affairAdd() {
+    public String affairAdd(Model model) {
+        super.setAttr("id", 0);
         return PREFIX + "post_affair.html";
     }
 
@@ -61,33 +70,54 @@ public class AffairController extends BaseController {
         return PREFIX + "affair_edit.html";
     }
 
+
     /**
      * 获取事物管理列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return affairService.selectList(null);
+
+        List<Map<String, Object>> list=affairService.list(condition);
+        return super.warpObject(new AffairWrapper(list));
     }
 
+
+
+
+    @Autowired private
+    IInfoUserService iInfoUserService;
     /**
      * 新增事物管理
      */
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(Affair affair) {
-        System.out.println(affair);
+        String idNumber=affair.getReceipt();
+        affair.setReceipt(null);
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("id_number",idNumber);
+        Integer user_id=0;
+        List<InfoUser> infoUser =iInfoUserService.selectByMap(map);
+        if(infoUser.size()==0) throw new ServiceException(BizExceptionEnum.IDNumberNull);
+        else  user_id=Integer.valueOf(infoUser.get(0).getId().toString());
         if (ToolUtil.isOneEmpty(affair, affair.getTitle(), affair.getContent())) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         String content=affair.getContent();
-        content=content.replaceAll("\\s+", "");
+        content=content.replaceAll("(&\\s)+", "&");
         String nescapeStr2 = StringEscapeUtils.unescapeXml(content);
         affair.setContent(nescapeStr2);
-        affair.setIdNumber(ShiroKit.getUser().getId());
+        affair.setIdNumber(user_id);
         affair.setCreatTime(new Date());
         affair.insert();
         return SUCCESS_TIP;
+    }
+
+    @RequestMapping("/affair_add/{affairId}")
+    public String add2(@PathVariable Integer affairId, Model model) {
+        super.setAttr("id", affairId);
+        return PREFIX + "post_affair.html";
     }
 
     @RequestMapping(value = "/content/{affairId}")
@@ -100,7 +130,7 @@ public class AffairController extends BaseController {
     @RequestMapping(value = "/content2/{affairId}")
     public String content2(@PathVariable Integer affairId, Model model) {
         Affair affair = affairService.selectById(affairId);
-        super.setAttr("item", affair.getContent());
+        super.setAttr("item", affair.getReceipt()==null?"空":affair.getReceipt());
         LogObjectHolder.me().set(affair);
         return PREFIX + "content.html";
     }
@@ -118,9 +148,16 @@ public class AffairController extends BaseController {
     /**
      * 修改事物管理
      */
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/update/{affairId}")
     @ResponseBody
-    public Object update(Affair affair) {
+    public Object update(@PathVariable Integer affairId,Affair affair) {
+        affair.setAffairId(affairId);
+        String content=affair.getReceipt();
+        content=content.replaceAll("(&\\s)+", "&");
+        String nescapeStr2 = StringEscapeUtils.unescapeXml(content);
+        affair.setReceipt(nescapeStr2);
+        affair.setAdminId(ShiroKit.getUser().getId());
+        affair.setSolved(1);
         affairService.updateById(affair);
         return SUCCESS_TIP;
     }

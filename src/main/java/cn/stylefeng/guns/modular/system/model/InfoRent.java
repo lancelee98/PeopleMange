@@ -41,6 +41,15 @@ public class InfoRent extends Model<InfoRent> {
     @TableField("end_time")
     private Date endTime;
 
+    private Float payment;
+
+    public Float getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Float payment) {
+        this.payment = payment;
+    }
 
     public Integer getCarportId() {
         return carportId;

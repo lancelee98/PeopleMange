@@ -69,6 +69,7 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     REQUEST_NULL(400, "请求有错误"),
     SESSION_TIMEOUT(400, "会话超时"),
     SERVER_ERROR(500, "服务器异常"),
+    IDNumberNull(400, "身份证号码不存在"),
 
     /**
      * token异常

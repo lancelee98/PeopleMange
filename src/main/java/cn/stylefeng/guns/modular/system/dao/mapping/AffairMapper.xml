@@ -18,5 +18,10 @@
     <sql id="Base_Column_List">
         affair_id, id_number, admin_id, creat_time, content, title, receipt, solved
     </sql>
-
+    <select id="list" resultType="map">
+        select affair_id as affairId,id_number as idNumber,admin_id as adminId,creat_time as creatTime,content,title,receipt,solved from info_affair
+        <if test="condition != null and condition != ''">
+            where title like CONCAT('%',#{condition},'%')
+        </if>
+    </select>
 </mapper>

@@ -8,11 +8,12 @@
         <result column="id_number" property="idNumber" />
         <result column="start_time" property="startTime" />
         <result column="end_time" property="endTime" />
+        <result column="payment" property="payment" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        carport_id, id_number, start_time, end_time
+        carport_id, id_number, start_time, end_time,payment
     </sql>
 
 </mapper>

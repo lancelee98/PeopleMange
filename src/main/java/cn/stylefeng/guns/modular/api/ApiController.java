@@ -18,8 +18,13 @@ package cn.stylefeng.guns.modular.api;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.util.JwtTokenUtil;
+import cn.stylefeng.guns.modular.room_info.service.IInfoService;
 import cn.stylefeng.guns.modular.system.dao.UserMapper;
+import cn.stylefeng.guns.modular.system.model.Info;
+import cn.stylefeng.guns.modular.system.model.InfoUser;
 import cn.stylefeng.guns.modular.system.model.User;
+import cn.stylefeng.guns.modular.system.warpper.InfoUserWarpper;
+import cn.stylefeng.guns.modular.user_info.service.IInfoUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -28,12 +33,11 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 接口控制器提供
@@ -47,7 +51,10 @@ public class ApiController extends BaseController {
 
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private  IInfoUserService userService;
+    @Autowired
+    private IInfoService roomService;
     /**
      * api登录接口，通过账号密码获取token
      */
@@ -81,6 +88,49 @@ public class ApiController extends BaseController {
         } else {
             return new ErrorResponseData(500, "账号密码错误！");
         }
+    }
+
+    /**
+     * 查询密码是否正确
+     */
+    @RequestMapping(value = "/checkPassWord",method = RequestMethod.POST)
+    @ResponseBody
+    public Object checkUserName(@RequestParam(value="phone") String phone,
+                                @RequestParam(value="passwd") String password) {
+        Map<String,Object> map=new HashMap<>();
+        System.out.println(phone);
+        System.out.println(password);
+        map.put("phone",phone);
+        map.put("passwd",password);
+        List<InfoUser> list=userService.selectByMap(map);
+        if(list!=null)
+            if(list.size()==1)
+                return SUCCESS_TIP;
+        return new ErrorResponseData(500, "用户名或密码错误");
+    }
+
+    /**
+     * 获得房间信息
+     */
+    @RequestMapping(value = "/getRoomInfo",method = RequestMethod.GET)
+    @ResponseBody
+    public Object getRoomInfo() {
+        Map<String,Object> map=new HashMap<>();
+        map.put("type",1);
+        List<Info> list=roomService.selectByMap(map);
+        return list;
+    }
+
+    /**
+     * 新增用户信息
+     */
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @ResponseBody
+    public Object add(InfoUser infoUser) {
+        if(infoUser.getName()==null)
+            return new ErrorResponseData(500, "信息不完整！");
+        userService.insert(infoUser);
+        return SUCCESS_TIP;
     }
 
     /**

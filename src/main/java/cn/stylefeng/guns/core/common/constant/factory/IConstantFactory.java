@@ -27,6 +27,7 @@ import java.util.List;
  */
 public interface IConstantFactory {
 
+    String getCreatorNameById(Integer userId);
     /**
      * 根据用户id获取用户名称
      *

@@ -6,11 +6,12 @@
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.InfoCarport">
         <id column="carport_id" property="carportId" />
         <result column="carport_loc" property="carportLoc" />
+        <result column="is_used" property="isUsed" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        carport_id, carport_loc
+        carport_id, carport_loc,is_used
     </sql>
 
 </mapper>
