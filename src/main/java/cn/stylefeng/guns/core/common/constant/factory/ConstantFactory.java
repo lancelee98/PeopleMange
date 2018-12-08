@@ -22,6 +22,7 @@ import cn.stylefeng.guns.core.common.constant.cache.CacheKey;
 import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import cn.stylefeng.guns.core.common.constant.state.MenuStatus;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.modular.carport_info.service.impl.InfoCarportServiceImpl;
 import cn.stylefeng.guns.modular.room_info.service.impl.InfoServiceImpl;
 import cn.stylefeng.guns.modular.system.dao.*;
 import cn.stylefeng.guns.modular.system.model.*;
@@ -55,12 +56,21 @@ public class ConstantFactory implements IConstantFactory {
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
     private  InfoRentMapper infoRentMapper=SpringContextHolder.getBean(InfoRentMapper.class);
+    private InfoCarportServiceImpl infoCarportService=SpringContextHolder.getBean(InfoCarportServiceImpl.class);
     private IInfoUserService iInfoUserService= SpringContextHolder.getBean(IInfoUserService.class);
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
     }
 
-
+    @Override
+    public String getCarpotNameById(Integer carport_id) {
+        InfoCarport carport=infoCarportService.selectById(carport_id);
+        if (carport != null) {
+            return carport.getCarportLoc();
+        } else {
+            return "--";
+        }
+    }
 
     @Override
     public String getUserNameByCarportId(Integer carport_id) {

@@ -8,25 +8,6 @@
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <#NameCon id="condition" name="名称" />
-                            </div>
-                            <div class="col-sm-3">
-                                <#button name="搜索" icon="fa-search" clickFun="InfoRent.search()"/>
-                            </div>
-                        </div>
-                        <div class="hidden-xs" id="InfoRentTableToolbar" role="group">
-                            @if(shiro.hasPermission("/infoRent/add")){
-                                <#button name="添加" icon="fa-plus" clickFun="InfoRent.openAddInfoRent()"/>
-                            @}
-                            @if(shiro.hasPermission("/infoRent/update")){
-                                <#button name="修改" icon="fa-edit" clickFun="InfoRent.openInfoRentDetail()" space="true"/>
-                            @}
-                            @if(shiro.hasPermission("/infoRent/delete")){
-                                <#button name="删除" icon="fa-remove" clickFun="InfoRent.delete()" space="true"/>
-                            @}
-                        </div>
                         <#table id="InfoRentTable"/>
                     </div>
                 </div>

@@ -27,6 +27,8 @@ import java.util.List;
  */
 public interface IConstantFactory {
 
+    String getCarpotNameById(Integer carport_id);
+
     String getUserNameByCarportId(Integer carport_id);
 
     String getCreatorNameById(Integer userId);

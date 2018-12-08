@@ -23,7 +23,7 @@ public class InfoRent extends Model<InfoRent> {
     /**
      * 车位标识号
      */
-    @TableId("carport_id")
+    @TableField("carport_id")
     private Integer carportId;
     /**
      * 发起人身份证号
@@ -42,6 +42,16 @@ public class InfoRent extends Model<InfoRent> {
     private Date endTime;
 
     private Float payment;
+
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Float getPayment() {
         return payment;

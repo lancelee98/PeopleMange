@@ -14,10 +14,29 @@ var InfoRent = {
 InfoRent.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '车位标识号', field: 'carportId', visible: true, align: 'center', valign: 'middle'},
-            {title: '发起人身份证号', field: 'idNumber', visible: true, align: 'center', valign: 'middle'},
-            {title: '租用时间', field: 'startTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '到期时间', field: 'endTime', visible: true, align: 'center', valign: 'middle'}
+            {title: '车位标识号', field: 'carportId', visible: false, align: 'center', valign: 'middle'},
+            {title: '发起人标识号', field: 'idNumber', visible: false, align: 'center', valign: 'middle'},
+            {title: '车位地址', field: 'carportLoc', visible: true, align: 'center', valign: 'middle'},
+            {title: '租借人', field: 'renter', visible: true, align: 'center', valign: 'middle'},
+            {title: '开始租用时间', field: 'startTime', visible: true, align: 'center', valign: 'middle'},
+            {title: '结束租用时间', field: 'endTime', visible: true, align: 'center', valign: 'middle'},
+            {title: '支付金额', field: 'payment', visible: true, align: 'center', valign: 'middle'},
+            {title: '租借状态', field: 'state', visible: true, align: 'center', valign: 'middle',
+                formatter: function(value,row,index){
+                    if(row.state==false)
+                    {
+                        value='<div style="text-align: center;color: #dc0000" >未完成</div>';
+                    }
+                    else if(row.state==true)
+                    {
+                        value='<div style="text-align: center;color: #23a523" >已完成</div>';
+                    }
+                    else {
+                        value='';
+                    }
+                    return value ;
+                }
+                },
     ];
 };
 

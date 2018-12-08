@@ -4,11 +4,12 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.InfoRent">
-        <id column="carport_id" property="carportId" />
+        <result column="carport_id" property="carportId" />
         <result column="id_number" property="idNumber" />
         <result column="start_time" property="startTime" />
         <result column="end_time" property="endTime" />
         <result column="payment" property="payment" />
+        <result column="state" property="state" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -21,8 +22,13 @@
         WHERE id =
         (
         select id_number FROM info_rent
-        WHERE carport_id=#{carport_id}
+        WHERE carport_id=#{carport_id} and state=0
         )
     </select>
+    <select id="list" resultType="map">
+        select carport_id as carportId, id_number as idNumber,start_time as startTime,end_time as endTime,payment,state from info_rent
+        <if test="condition != null and condition != ''">
 
+        </if>
+    </select>
 </mapper>

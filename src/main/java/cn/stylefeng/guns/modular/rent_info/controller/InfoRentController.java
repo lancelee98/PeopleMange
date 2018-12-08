@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.rent_info.controller;
 
+import cn.stylefeng.guns.modular.system.warpper.CarportWrapper;
+import cn.stylefeng.guns.modular.system.warpper.RentWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,9 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.InfoRent;
 import cn.stylefeng.guns.modular.rent_info.service.IInfoRentService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 租借信息控制器
@@ -60,7 +65,8 @@ public class InfoRentController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return infoRentService.selectList(null);
+        List<Map<String, Object>> list = this.infoRentService.list(condition);
+        return super.warpObject(new RentWrapper(list));
     }
 
     /**
