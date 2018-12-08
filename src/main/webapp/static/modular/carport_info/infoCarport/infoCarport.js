@@ -14,8 +14,25 @@ var InfoCarport = {
 InfoCarport.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '车位标识号', field: 'carportId', visible: true, align: 'center', valign: 'middle'},
-            {title: '车位地址', field: 'carportLoc', visible: true, align: 'center', valign: 'middle'}
+        {title: 'id', field: 'carportId', visible: false, align: 'center', valign: 'middle'},
+        {title: '车位地址', field: 'carportLoc', visible: true, align: 'center', valign: 'middle'},
+        {title: '状态', field: 'isUsed', visible: true, align: 'center', valign: 'middle',
+            formatter: function(value,row,index){
+                if(row.isUsed==true)
+                {
+                    value='<div style="text-align: center;color: #dc0000" >使用中</div>';
+                }
+                else if(row.isUsed==false)
+                {
+                    value='<div style="text-align: center;color: #23a523" >空闲中</div>';
+                }
+                else {
+                    value='';
+                }
+                return value ;
+            }
+        },
+        {title: '使用人', field: 'username', visible: true, align: 'center', valign: 'middle'},
     ];
 };
 
@@ -59,7 +76,7 @@ InfoCarport.openInfoCarportDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/infoCarport/infoCarport_update/' + InfoCarport.seItem.id
+            content: Feng.ctxPath + '/infoCarport/infoCarport_update/' + InfoCarport.seItem.carportId
         });
         this.layerIndex = index;
     }
@@ -70,15 +87,19 @@ InfoCarport.openInfoCarportDetail = function () {
  */
 InfoCarport.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/infoCarport/delete", function (data) {
-            Feng.success("删除成功!");
-            InfoCarport.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("infoCarportId",this.seItem.id);
-        ajax.start();
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/infoCarport/delete", function (data) {
+                Feng.success("删除成功!");
+                InfoCarport.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("infoCarportId", InfoCarport.seItem.carportId);
+            ajax.start();
+        };
+        Feng.confirm("是否删除该车位包括其所有租用信息?", operation);
     }
+
 };
 
 /**

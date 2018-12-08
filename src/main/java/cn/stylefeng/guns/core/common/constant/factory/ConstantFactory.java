@@ -54,11 +54,23 @@ public class ConstantFactory implements IConstantFactory {
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
+    private  InfoRentMapper infoRentMapper=SpringContextHolder.getBean(InfoRentMapper.class);
     private IInfoUserService iInfoUserService= SpringContextHolder.getBean(IInfoUserService.class);
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
     }
 
+
+
+    @Override
+    public String getUserNameByCarportId(Integer carport_id) {
+        String username=infoRentMapper.selectNameByCarportId(carport_id);
+        if (username != null) {
+            return username;
+        } else {
+            return "--";
+        }
+    }
 
     @Override
     public String getCreatorNameById(Integer userId) {

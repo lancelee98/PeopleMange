@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.carport_info.controller;
 
+import cn.stylefeng.guns.modular.system.warpper.CarportWrapper;
+import cn.stylefeng.guns.modular.system.warpper.RoomWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,9 @@ import cn.stylefeng.guns.core.log.LogObjectHolder;
 import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.InfoCarport;
 import cn.stylefeng.guns.modular.carport_info.service.IInfoCarportService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 车位信息控制器
@@ -60,7 +65,8 @@ public class InfoCarportController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        return infoCarportService.selectList(null);
+        List<Map<String, Object>> list = this.infoCarportService.list(condition);
+        return super.warpObject(new CarportWrapper(list));
     }
 
     /**

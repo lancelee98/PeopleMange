@@ -16,4 +16,13 @@
         carport_id, id_number, start_time, end_time,payment
     </sql>
 
+    <select id="selectNameByCarportId" resultType="String">
+        select name FROM info_user
+        WHERE id =
+        (
+        select id_number FROM info_rent
+        WHERE carport_id=#{carport_id}
+        )
+    </select>
+
 </mapper>

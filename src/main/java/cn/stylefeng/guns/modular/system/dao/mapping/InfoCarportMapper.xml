@@ -14,4 +14,11 @@
         carport_id, carport_loc,is_used
     </sql>
 
+
+    <select id="list" resultType="map">
+        select carport_id as carportId,carport_loc as  carportLoc ,is_used as isUsed from info_carport
+        <if test="condition != null and condition != ''">
+            where carport_loc like CONCAT('%',#{condition},'%')
+        </if>
+    </select>
 </mapper>
