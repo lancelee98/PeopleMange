@@ -143,7 +143,8 @@ InfoUserInfoDlg.collectData = function() {
     .set('race')
     .set('job')
     .set('roomId')
-    .set('passwd');
+    .set('passwd')
+    .set('id');
 }
 
 /**
@@ -198,11 +199,13 @@ InfoUserInfoDlg.editSubmit = function() {
         Feng.error("修改失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.infoUserInfoData);
+    console.log($("#roomId").val())
     ajax.start();
 }
 InfoUserInfoDlg.onClickTree = function (e, treeId, treeNode) {
     $("#deviceSel").attr("value", instance.getSelectedVal());
     $("#roomId").attr("value", treeNode.id);
+    console.log($("#roomId").val())
 };
 InfoUserInfoDlg.showDeviceSelectTree = function () {
     var deviceObj = $("#deviceSel");

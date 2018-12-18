@@ -17,9 +17,6 @@
                             </div>
                         </div>
                         <div class="hidden-xs" id="AffairTableToolbar" role="group">
-                            @if(shiro.hasPermission("/affair/add")){
-                                <#button name="发起报修或投诉" icon="fa-plus" clickFun="Affair.openAddAffair()"/>
-                            @}
                             @if(shiro.hasPermission("/affair/update")){
                                 <#button name="解决报修或投诉" icon="fa-edit" clickFun="Affair.openAffairDetail()" space="true"/>
                             @}

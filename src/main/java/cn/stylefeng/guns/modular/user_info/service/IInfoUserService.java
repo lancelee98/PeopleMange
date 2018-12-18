@@ -17,4 +17,5 @@ import java.util.Map;
  */
 public interface IInfoUserService extends IService<InfoUser> {
     List<Map<String, Object>> list(@Param("condition") String condition);
+    Map<String, Object>  getSexAndAgeCharts(Map<String, Object> map);
 }

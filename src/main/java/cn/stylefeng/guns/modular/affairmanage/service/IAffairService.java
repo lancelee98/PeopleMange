@@ -17,4 +17,5 @@ import java.util.Map;
  */
 public interface IAffairService extends IService<Affair> {
     List<Map<String, Object>> list(@Param("condition") String condition);
+    List<Affair> selectByIdNum(@Param("idNumber") Integer idNumber);
 }

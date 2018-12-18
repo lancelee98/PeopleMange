@@ -15,11 +15,11 @@ InfoRent.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
             {title: '车位标识号', field: 'carportId', visible: false, align: 'center', valign: 'middle'},
-            {title: '发起人标识号', field: 'idNumber', visible: false, align: 'center', valign: 'middle'},
-            {title: '车位地址', field: 'carportLoc', visible: true, align: 'center', valign: 'middle'},
-            {title: '租借人', field: 'renter', visible: true, align: 'center', valign: 'middle'},
-            {title: '开始租用时间', field: 'startTime', visible: true, align: 'center', valign: 'middle'},
-            {title: '结束租用时间', field: 'endTime', visible: true, align: 'center', valign: 'middle'},
+            {title: '发起人标识号', field: 'id_number', visible: false, align: 'center', valign: 'middle'},
+            {title: '车位地址', field: 'carport_loc', visible: true, align: 'center', valign: 'middle'},
+            {title: '租借人', field: 'name', visible: true, align: 'center', valign: 'middle'},
+            {title: '开始租用时间', field: 'start_time', visible: true, align: 'center', valign: 'middle'},
+            {title: '结束租用时间', field: 'end_time', visible: true, align: 'center', valign: 'middle'},
             {title: '支付金额', field: 'payment', visible: true, align: 'center', valign: 'middle'},
             {title: '租借状态', field: 'state', visible: true, align: 'center', valign: 'middle',
                 formatter: function(value,row,index){
@@ -107,13 +107,15 @@ InfoRent.delete = function () {
  */
 InfoRent.search = function () {
     var queryData = {};
-    queryData['condition'] = $("#condition").val();
+    queryData['starttime'] = $("#beginTime").val();
+    queryData['endtime'] = $("#endTime").val();
+    queryData['state'] = $("#state").val();
     InfoRent.table.refresh({query: queryData});
 };
 
 $(function () {
     var defaultColunms = InfoRent.initColumn();
     var table = new BSTable(InfoRent.id, "/infoRent/list", defaultColunms);
-    table.setPaginationType("client");
+    table.setPaginationType("server");
     InfoRent.table = table.init();
 });

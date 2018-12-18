@@ -24,4 +24,12 @@
             where title like CONCAT('%',#{condition},'%')
         </if>
     </select>
+
+    <select id="selectByIdNum" resultType="cn.stylefeng.guns.modular.system.model.Affair">
+        SELECT * FROM info_affair
+        <if test="idNumber != null">
+            WHERE id_number=#{idNumber}
+        </if>
+        ORDER BY creat_time desc
+    </select>
 </mapper>

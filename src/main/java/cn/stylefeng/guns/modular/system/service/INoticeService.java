@@ -35,4 +35,5 @@ public interface INoticeService extends IService<Notice> {
      * 获取通知列表
      */
     List<Map<String, Object>> list(String condition);
+    Notice getRencentNotice();
 }

@@ -18,4 +18,5 @@ import java.util.Map;
 public interface InfoUserMapper extends BaseMapper<InfoUser> {
 
     List<Map<String, Object>> list(@Param("condition") String condition);
+    Map<String, Object> getSexAndAgeCharts(Map<String, Object> map);
 }

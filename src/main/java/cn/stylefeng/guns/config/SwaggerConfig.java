@@ -20,12 +20,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * swagger配置类
@@ -40,23 +46,40 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
+        ParameterBuilder tokenPar = new ParameterBuilder();
+        List<Parameter> pars = new ArrayList<>();
+        tokenPar.name("Authorization").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        pars.add(tokenPar.build());
+        //添加head参数配置end
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))                         //这里采用包含注解的方式来确定要显示的接口
-                //.apis(RequestHandlerSelectors.basePackage("cn.stylefeng.guns.modular.system.controller"))    //这里采用包扫描的方式来确定要显示的接口
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .globalOperationParameters(pars);//注意这里
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .apiInfo(apiInfo())
+//                .select()
+//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))                         //这里采用包含注解的方式来确定要显示的接口
+//                //.apis(RequestHandlerSelectors.basePackage("cn.stylefeng.guns.modular.system.datastatstic"))    //这里采用包扫描的方式来确定要显示的接口
+//                .paths(PathSelectors.any())
+//                .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Guns Doc")
-                .description("Guns Api文档")
-                .termsOfServiceUrl("https://gitee.com/stylefeng/guns")
-                .contact("stylefeng")
-                .version("2.0")
+                .title("小区人口管理系统接口说明")
+                .version("1.0")
                 .build();
+//        return new ApiInfoBuilder()
+//                .title("Guns Doc")
+//                .description("Guns Api文档")
+//                .termsOfServiceUrl("https://gitee.com/stylefeng/guns")
+//                .contact("stylefeng")
+//                .version("2.0")
+//                .build();
     }
-
 }
+
+

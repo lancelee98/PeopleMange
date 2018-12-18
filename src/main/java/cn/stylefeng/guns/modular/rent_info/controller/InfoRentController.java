@@ -1,8 +1,14 @@
 package cn.stylefeng.guns.modular.rent_info.controller;
 
+import cn.stylefeng.guns.core.common.constant.factory.PageFactory;
+import cn.stylefeng.guns.core.common.constant.state.BizLogType;
+import cn.stylefeng.guns.core.common.page.PageInfoBT;
+import cn.stylefeng.guns.modular.system.model.OperationLog;
 import cn.stylefeng.guns.modular.system.warpper.CarportWrapper;
+import cn.stylefeng.guns.modular.system.warpper.LogWarpper;
 import cn.stylefeng.guns.modular.system.warpper.RentWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.InfoRent;
 import cn.stylefeng.guns.modular.rent_info.service.IInfoRentService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,9 +71,16 @@ public class InfoRentController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list(String condition) {
-        List<Map<String, Object>> list = this.infoRentService.list(condition);
-        return super.warpObject(new RentWrapper(list));
+    public Object list(Integer state,String starttime,String endtime) {
+        Page<Map<String, Object>> page = new PageFactory<Map<String, Object>>().defaultPage();
+        List<Map<String, Object>> result = this.infoRentService.selectFromView(page,state,starttime,endtime);
+        page.setRecords(result);
+        System.out.println("mylc"+new PageInfoBT<>(page));
+        return new PageInfoBT<>(page);
+//        Page<OperationLog> page = new PageFactory<OperationLog>().defaultPage();
+//        List<Map<String, Object>> result = operationLogService.getOperationLogs(page, beginTime, endTime, logName, BizLogType.valueOf(logType), page.getOrderByField(), page.isAsc());
+//        page.setRecords(new LogWarpper(result).wrap());
+//        return new PageInfoBT<>(page);
     }
 
     /**

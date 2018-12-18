@@ -17,4 +17,5 @@ import java.util.Map;
  */
 public interface AffairMapper extends BaseMapper<Affair> {
     List<Map<String, Object>> list(@Param("condition") String condition);
+    List<Affair> selectByIdNum(@Param("idNumber") Integer idNumber);
 }

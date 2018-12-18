@@ -23,4 +23,8 @@ public class InfoUserServiceImpl extends ServiceImpl<InfoUserMapper, InfoUser> i
     public List<Map<String, Object>> list(String condition) {
         return this.baseMapper.list(condition);
     }
+    @Override
+    public Map<String, Object>  getSexAndAgeCharts(Map<String, Object> map) {
+        return this.baseMapper.getSexAndAgeCharts(map);
+    }
 }

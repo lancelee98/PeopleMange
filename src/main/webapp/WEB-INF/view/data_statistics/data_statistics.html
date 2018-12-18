@@ -1,0 +1,74 @@
+@layout("/common/_lc_container.html"){
+<div class="col-sm-12 ">
+    <div class="ibox float-e-margins pt-3 px-3">
+        <div class="card ">
+            <ul class="list-group list-group-flush ">
+                <li class="list-group-item d-flex flex-row">
+                    <div class="d-flex align-items-center mr-1">时间 :</div>
+                    <div  class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-info btn-sm  mx-2 active" id="today_lable">
+                            <input type="radio" name="options" value="今天" id="today" autocomplete="off"  > 今日
+                        </label>
+                        <label class="btn btn-info btn-sm  mx-2" id="yesterday_lable">
+                            <input type="radio" name="options"  value="昨天" id="yesterday" autocomplete="off"> 昨日
+                        </label>
+                        <label class="btn btn-info btn-sm  mx-2" id="thisweek_lable">
+                            <input type="radio" name="options" value="本周" id="thisweek" autocomplete="off"> 本周
+                        </label>
+                        <label class="btn btn-info btn-sm  mx-2" id="lastweek_lable">
+                            <input type="radio" name="options" value="上周" id="lastweek" autocomplete="off"> 上周
+                        </label>
+                        <label class="btn btn-info btn-sm  mx-2"id="thismonth_lable">
+                            <input type="radio" name="options" value="本月" id="thismonth" autocomplete="off"> 本月
+                        </label>
+                        <label class="btn btn-info btn-sm  mx-2"id="lastmonth_lable">
+                            <input type="radio" name="options" value="上月" id="lastmonth" autocomplete="off"> 上月
+                        </label>
+                        <input type="text" class="form-control align-items-center mx-2 layer-date "  placeholder="选择开始时间"style="
+                                text-align: center;
+                                font-size: inherit;
+                                width: 120px;
+                                height: 28px;
+                                background-color: #ffffff !important;" id="start_time"/>
+                        <input type="text" class="form-control align-items-center mx-2 layer-date " placeholder="选择结束时间"style="
+                                text-align: center;
+                                font-size: inherit;
+                                width: 120px;
+                                height: 28px;
+                                background-color: #ffffff !important;" id="end_time"/>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex flex-row">
+                    <div class="d-flex align-items-center mr-1">类型 :</div>
+                    <div  class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-info btn-sm  mx-2 active">
+                            <input type="radio" name="type" value="num" id="num" autocomplete="off"  > 次数
+                        </label>
+                        <label class="btn btn-info btn-sm  mx-2" >
+                            <input type="radio" name="type"  value="money" id="money" autocomplete="off"> 金额
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="d-flex flex-row my-3 px-3" >
+        <div class="card">
+            <div id="renliutj" class="card-header px-2 py-0" style="border: 0px">
+            </div>
+            <div class="d-flex flex-row justify-content-between pt-2 py-3">
+                <div  id="peoplecharts" style="height: 300px;width: 800px"></div>
+            </div>
+            <div class="d-flex flex-row justify-content-start py-3" >
+                <div id="sexcharts" style="height: 300px;width: 300px"></div>
+                <div id="agecharts" style="height: 300px;width: 800px"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="${ctxPath}/static/modular/data_statistics/data_statistics.js"></script>
+@}

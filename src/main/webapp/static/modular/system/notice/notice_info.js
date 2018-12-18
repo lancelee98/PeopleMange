@@ -54,7 +54,7 @@ NoticeInfoDlg.close = function () {
  * 收集数据
  */
 NoticeInfoDlg.collectData = function () {
-    this.noticeInfoData['content'] = NoticeInfoDlg.editor.txt.html();
+    this.noticeInfoData['content'] = $("#editor").val();
     this.set('id').set('title');
 }
 
@@ -118,11 +118,11 @@ NoticeInfoDlg.editSubmit = function () {
 
 $(function () {
     Feng.initValidator("noticeInfoForm", NoticeInfoDlg.validateFields);
-
-    //初始化编辑器
-    var E = window.wangEditor;
-    var editor = new E('#editor');
-    editor.create();
-    editor.txt.html($("#contentVal").val());
-    NoticeInfoDlg.editor = editor;
+    $("#editor").val(($("#contentVal").val()));
+    // //初始化编辑器
+    // var E = window.wangEditor;
+    // var editor = new E('#editor');
+    // editor.create();
+    // editor.txt.html($("#contentVal").val());
+    // NoticeInfoDlg.editor = editor;
 });

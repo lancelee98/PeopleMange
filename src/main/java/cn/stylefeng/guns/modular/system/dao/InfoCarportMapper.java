@@ -17,4 +17,6 @@ import java.util.Map;
  */
 public interface InfoCarportMapper extends BaseMapper<InfoCarport> {
     List<Map<String, Object>> list(@Param("condition") String condition);
+    Map<String, Object>  getCarportNum();
+   InfoCarport rentCarport();
 }

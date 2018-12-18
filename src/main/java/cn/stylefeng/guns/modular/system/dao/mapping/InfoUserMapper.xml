@@ -27,4 +27,22 @@
             where name like CONCAT('%',#{condition},'%') or id_number like CONCAT('%',#{condition},'%')
         </if>
     </select>
+
+    <select id="getSexAndAgeCharts" resultType="map">
+        <if test="type != null and type != ''and type=='age'">
+            select sum(case when age &lt;=16 then 1 else 0 end ) age1,
+            sum(case when age>16 and age &lt;=25 then 1 else 0 end ) age2,
+            sum(case when age>25 and age &lt;=35 then 1 else 0 end ) age3,
+            sum(case when age>35 and age &lt;=45 then 1 else 0 end ) age4,
+            sum(case when age>45 and age &lt;=55 then 1 else 0 end ) age5,
+            sum(case when age>55 and age &lt;=65 then 1 else 0 end ) age6,
+            sum(case when age>65 and age &lt;=75 then 1 else 0 end ) age7,
+            sum(case when age>75  then 1 else 0 end ) age8
+        </if>
+        <if test="type != null and type != ''and type=='sex'">
+            select sum(case when gender=1 then 1 else 0 end ) 男,
+            sum(case when gender=0 then 1 else 0 end ) 女
+        </if>
+        from info_user
+    </select>
 </mapper>

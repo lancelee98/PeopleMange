@@ -31,4 +31,170 @@
 
         </if>
     </select>
+
+    <select id="selectRentByIdNum" resultType="cn.stylefeng.guns.modular.system.model.InfoRent">
+        select *
+        from info_rent
+        where state=0 and
+        <if test="user_id != null">
+            id_number=#{user_id}
+        </if>
+    </select>
+
+    <update id="stopRent">
+		update info_rent
+		set payment = #{payment} ,
+		end_time=#{end_time},
+		state=#{state}
+		where carport_id =#{carport_id} and start_time=#{start_time}
+	</update>
+
+    <select id="selectFromView" resultType="map">
+        SELECT * FROM info_carport_rent
+        WHERE true
+        <if test="state != null and state != -1">
+            and state=#{state}
+        </if>
+        <if test="starttime != null and starttime != ''and endtime!=null and endtime!=''">
+            and  (&apos;${starttime}&apos;  &lt;=  date(info_carport_rent.end_time)) and (date(info_carport_rent.end_time) &lt;=&apos;${endtime}&apos; )
+        </if>
+    </select>
+
+
+    <select id="selectRentChart" resultType="map">
+        <if test="condition != null and condition != ''and condition=='thisweek'">
+            select DATE_FORMAT(info_carport_rent.end_time,'%W') datas,
+            <if test="type == 'num' ">
+            count(*)
+            </if>
+            <if test="type == 'money' ">
+            sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE YEARWEEK(date_format(info_carport_rent.end_time,'%Y-%m-%d')- INTERVAL 1 DAY) = YEARWEEK(now())
+            and state=1
+        </if>
+
+        <if test="condition != null and condition != ''and condition=='lastweek'">
+            select DATE_FORMAT(info_carport_rent.end_time,'%W') datas,
+            <if test="type == 'num' ">
+                count(*)
+            </if>
+            <if test="type == 'money' ">
+                sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE YEARWEEK(date_format(info_carport_rent.end_time,'%Y-%m-%d')- INTERVAL 1 DAY) = YEARWEEK(now()- INTERVAL 7 DAY)
+            and state=1
+        </if>
+        <if test="condition != null and condition != ''and condition=='lastlastweek'">
+            select DATE_FORMAT(info_carport_rent.end_time,'%W') datas,
+            <if test="type == 'num' ">
+                count(*)
+            </if>
+            <if test="type == 'money' ">
+                sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE YEARWEEK(date_format(info_carport_rent.end_time,'%Y-%m-%d')- INTERVAL 1 DAY) = YEARWEEK(now()- INTERVAL 14 DAY)
+            and state=1
+        </if>
+        <if test="condition != null and condition != ''and condition=='today'">
+            SELECT DATE_FORMAT(info_carport_rent.end_time,'%H') datas,
+            <if test="type == 'num' ">
+                count(*)
+            </if>
+            <if test="type == 'money' ">
+                sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE  DATE_FORMAT(info_carport_rent.end_time,'%Y-%m-%d')=DATE_FORMAT(date_sub(now(),interval 0 day),'%Y-%m-%d')
+            and state=1
+        </if>
+
+        <if test="condition != null and condition != ''and condition=='yesterday'">
+            SELECT DATE_FORMAT(info_carport_rent.end_time,'%H') datas,
+            <if test="type == 'num' ">
+                count(*)
+            </if>
+            <if test="type == 'money' ">
+                sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE  DATE_FORMAT(info_carport_rent.end_time,'%Y-%m-%d')=DATE_FORMAT(date_sub(now(),interval 1 day),'%Y-%m-%d')
+            and state=1
+        </if>
+
+        <if test="condition != null and condition != ''and condition=='thismonth'">
+            SELECT DATE_FORMAT(info_carport_rent.end_time,'%d') datas,
+            <if test="type == 'num' ">
+                count(*)
+            </if>
+            <if test="type == 'money' ">
+                sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE  DATE_FORMAT(info_carport_rent.end_time,'%Y-%m')=DATE_FORMAT(date_sub(now(),interval 0 MONTH),'%Y-%m')
+            and state=1
+        </if>
+
+        <if test="condition != null and condition != ''and condition=='lastmonth'">
+            SELECT DATE_FORMAT(info_carport_rent.end_time,'%d') datas,
+            <if test="type == 'num' ">
+                count(*)
+            </if>
+            <if test="type == 'money' ">
+                sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE  DATE_FORMAT(info_carport_rent.end_time,'%Y-%m')=DATE_FORMAT(date_sub(now(),interval 1 MONTH),'%Y-%m')
+            and state=1
+        </if>
+
+        <if test="condition != null and condition != ''and condition=='thisyear'">
+            SELECT DATE_FORMAT(info_carport_rent.end_time,'%m') datas,
+            <if test="type == 'num' ">
+                count(*)
+            </if>
+            <if test="type == 'money' ">
+                sum(payment)
+            </if>as counts
+            FROM info_carport_rent
+            WHERE  DATE_FORMAT(info_carport_rent.end_time,'%Y')=DATE_FORMAT(date_sub(now(),interval 0 YEAR),'%Y')
+            and state=1
+        </if>
+        <if test="endtime != null and endtime != ''and starttime!=nul and starttime!=''">
+            SELECT
+            <if test="selectByHour == null or selectByHour == ''">
+                date(datelist) datas,
+                count(*) - 1 as counts
+                FROM
+                (
+                SELECT datelist
+                FROM sys_calendar
+                where  (&apos;${starttime}&apos;  &lt;=  date(datelist)) and (date(datelist) &lt;=&apos;${endtime}&apos; )
+                UNION ALL SELECT info_carport_rent.end_time
+                FROM info_carport_rent
+                where  (&apos;${starttime}&apos;  &lt;=  date(info_carport_rent.end_time)) and (date(info_carport_rent.end_time) &lt;=&apos;${endtime}&apos;
+                and state=1)
+                ) temp
+            </if>
+            <if test="selectByHour != null and selectByHour == 'true'">
+                DATE_FORMAT(datehour,'%Y-%m-%d日%H点') datas,
+                count(*) - 1 as counts
+                FROM
+                (
+                SELECT
+                DATE_FORMAT(datehour,'%Y-%m-%d %H') datehour
+                FROM sys_calendar
+                where  (&apos;${starttime}&apos;  &lt;=  date(datehour)) and (date(datehour) &lt;=&apos;${endtime}&apos; )
+                UNION ALL SELECT DATE_FORMAT(info_carport_rent.end_time,'%Y-%m-%d %H')
+                FROM info_carport_rent
+                where  (&apos;${starttime}&apos;  &lt;=  date(info_carport_rent.end_time)) and (date(info_carport_rent.end_time) &lt;=&apos;${endtime}&apos; )
+                and state=1) temp
+            </if>
+        </if>
+        GROUP BY datas
+        ORDER BY datas;
+    </select>
 </mapper>

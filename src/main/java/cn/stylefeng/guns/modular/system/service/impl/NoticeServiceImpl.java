@@ -19,6 +19,7 @@ import cn.stylefeng.guns.modular.system.dao.NoticeMapper;
 import cn.stylefeng.guns.modular.system.model.Notice;
 import cn.stylefeng.guns.modular.system.service.INoticeService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +39,9 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     @Override
     public List<Map<String, Object>> list(String condition) {
         return this.baseMapper.list(condition);
+    }
+    @Override
+    public Notice getRencentNotice() {
+        return this.baseMapper.getRencentNotice();
     }
 }

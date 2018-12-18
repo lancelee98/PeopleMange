@@ -3,7 +3,7 @@
  */
 var AffairInfoDlg = {
     affairInfoData: {},
-    editor:null,
+    // editor:null,
     validateFields: {
         title: {
             validators: {
@@ -72,7 +72,7 @@ AffairInfoDlg.collectData = function() {
     this.affairInfoData['receipt'] = $("#idNumber").val();
 }
 AffairInfoDlg.collectData2 = function() {
-    this.affairInfoData['receipt'] = AffairInfoDlg.editor.txt.html();
+    this.affairInfoData['receipt'] = $("#receipt").val();
 }
 AffairInfoDlg.validate = function () {
     $('#AffairInfoDlgForm').data("bootstrapValidator").resetForm();
@@ -119,6 +119,7 @@ AffairInfoDlg.addSubmit2 = function() {
         Feng.error("添加失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.affairInfoData);
+    console.log(this.affairInfoData);
     ajax.start();
 }
 
@@ -148,8 +149,8 @@ AffairInfoDlg.editSubmit = function() {
 $(function() {
     Feng.initValidator("AffairInfoDlgForm", AffairInfoDlg.validateFields);
     //初始化编辑器
-    var E = window.wangEditor;
-    var editor = new E('#editor');
-    editor.create();
-    AffairInfoDlg.editor = editor;
+    // var E = window.wangEditor;
+    // var editor = new E('#editor');
+    // editor.create();
+    // AffairInfoDlg.editor = editor;
 });

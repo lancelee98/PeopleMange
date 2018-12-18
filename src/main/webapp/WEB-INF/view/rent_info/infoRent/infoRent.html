@@ -7,13 +7,45 @@
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
-                    <div class="col-sm-12">
-                        <#table id="InfoRentTable"/>
+                    <div class="col-lg-10 col-sm-9">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <#SelectCon id="state" name="租借状态" >
+                                <option value="-1">全部</option>
+                                <option value="1">已完成</option>
+                                <option value="0">未完成</option>
+                            </#SelectCon>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <#TimeCon id="beginTime" name="租借完成最早日期" isTime="true"/>
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <#TimeCon id="endTime" name="租借完成最晚日期" isTime="true"/>
+                        </div>
                     </div>
+                </div>
+                <div class="hidden-xs" id="InfoRentTableToolbar" role="group">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <#button name="搜索" icon="fa-search" clickFun="InfoRent.search()"/>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-sm-12">
+                    <#table id="InfoRentTable"/>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 <script src="${ctxPath}/static/modular/rent_info/infoRent/infoRent.js"></script>
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
 @}

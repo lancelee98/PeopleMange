@@ -23,4 +23,9 @@ public class AffairServiceImpl extends ServiceImpl<AffairMapper, Affair> impleme
     public List<Map<String, Object>> list(String condition) {
         return this.baseMapper.list(condition);
     }
+
+    @Override
+    public List<Affair> selectByIdNum(Integer idNumber) {
+        return this.baseMapper.selectByIdNum(idNumber);
+    }
 }

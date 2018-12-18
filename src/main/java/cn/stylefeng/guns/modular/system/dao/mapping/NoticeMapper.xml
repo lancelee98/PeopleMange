@@ -18,5 +18,7 @@
         </if>
         order by createtime DESC
     </select>
-
+    <select id="getRencentNotice" resultType="cn.stylefeng.guns.modular.system.model.Notice">
+        SELECT * FROM info_notice ORDER BY createtime DESC LIMIT 1
+    </select>
 </mapper>

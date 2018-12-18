@@ -153,9 +153,9 @@ public class AffairController extends BaseController {
     public Object update(@PathVariable Integer affairId,Affair affair) {
         affair.setAffairId(affairId);
         String content=affair.getReceipt();
-        content=content.replaceAll("(&\\s)+", "&");
-        String nescapeStr2 = StringEscapeUtils.unescapeXml(content);
-        affair.setReceipt(nescapeStr2);
+//        content=content.replaceAll("(&\\s)+", "&");
+//        String nescapeStr2 = StringEscapeUtils.unescapeXml(content);
+        affair.setReceipt(content);
         affair.setAdminId(ShiroKit.getUser().getId());
         affair.setSolved(1);
         affairService.updateById(affair);

@@ -21,4 +21,17 @@
             where carport_loc like CONCAT('%',#{condition},'%')
         </if>
     </select>
+    <select id="getCarportNum" resultType="map">
+        SELECT COUNT(carport_id) as CarportNum
+        FROM info_carport
+        WHERE is_used=0;
+    </select>
+
+    <select id="rentCarport" resultType="cn.stylefeng.guns.modular.system.model.InfoCarport">
+        SELECT *
+        FROM info_carport
+        WHERE is_used=0
+        ORDER BY carport_id asc
+        LIMIT 1
+    </select>
 </mapper>
