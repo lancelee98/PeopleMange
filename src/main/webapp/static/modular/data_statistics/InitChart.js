@@ -71,7 +71,7 @@ InitChart.initPeopleChartOrigin=function () {
             }
         },
         series: [{
-            name:"单数",
+            name:"次数",
             type: 'line',
             areaStyle: {},
             smooth: true

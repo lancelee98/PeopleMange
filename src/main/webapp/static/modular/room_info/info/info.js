@@ -1,5 +1,5 @@
 /**
- * 住房管理管理初始化
+ * 住房管理初始化
  */
 var Info = {
     id: "InfoTable",	//表格id
@@ -45,12 +45,12 @@ Info.check = function () {
 };
 
 /**
- * 点击添加住房管理
+ * 点击添加住房
  */
 Info.openAddInfo = function () {
     var index = layer.open({
         type: 2,
-        title: '添加住房管理',
+        title: '添加住房',
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
@@ -60,13 +60,13 @@ Info.openAddInfo = function () {
 };
 
 /**
- * 打开查看住房管理详情
+ * 打开查看住房详情
  */
 Info.openInfoDetail = function () {
     if (this.check()) {
         var index = layer.open({
             type: 2,
-            title: '住房管理详情',
+            title: '住房详情',
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
@@ -77,7 +77,7 @@ Info.openInfoDetail = function () {
 };
 
 /**
- * 删除住房管理
+ * 删除住房
  */
 Info.delete = function () {
     if (this.check()) {
@@ -93,14 +93,13 @@ Info.delete = function () {
 };
 
 /**
- * 查询住房管理列表
+ * 查询住房列表
  */
 Info.search = function () {
     var queryData = {};
     queryData['condition'] = $("#condition").val();
     Info.table.refresh({query: queryData});
 };
-
 
 $(function () {
     var defaultColunms = Info.initColumn();

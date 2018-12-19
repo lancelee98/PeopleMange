@@ -22,7 +22,7 @@ import static cn.stylefeng.guns.core.common.constant.factory.MutiStrFactory.*;
 /**
  * 住房管理控制器
  *
- * @author fengshuonan
+ * @author lichuang
  * @Date 2018-11-10 14:57:27
  */
 @Controller
@@ -76,7 +76,7 @@ public class InfoController extends BaseController {
     }
 
     /**
-     * 新增住房管理
+     * 新增住房信息
      */
     @RequestMapping(value = "/add")
     @ResponseBody
@@ -124,7 +124,6 @@ public class InfoController extends BaseController {
         ChangeChildAddress(newaddress,oldaddress,info.getRoomId());
         return SUCCESS_TIP;
     }
-
     /**
      * 住房管理详情
      */
@@ -133,6 +132,4 @@ public class InfoController extends BaseController {
     public Object detail(@PathVariable("infoId") Integer infoId) {
         return infoService.selectById(infoId);
     }
-
-
 }

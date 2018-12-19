@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * 车位信息控制器
  *
- * @author fengshuonan
+ * @author lichuang
  * @Date 2018-11-16 21:05:06
  */
 @Controller
