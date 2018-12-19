@@ -14,27 +14,28 @@
 
 ## 系统截图
 
+
+
 * 车位租借次数统计
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/data1.png)
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/data1.png?raw=true)
 
 * 车位租借金额统计
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/data2.png)
-
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/data2.png?raw=true)
 
 * 性别年龄统计
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/data3.png)
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/data3.png?raw=true)
 
 * 车位信息
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/carport.png)
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/carport.png?raw=true)
 
 * 租借信息
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/rent.png)
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/rent.png?raw=true)
 
 * 房间信息
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/room1.png)
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/room1.png?raw=true)
 
 * 用户信息
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/user.png)
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/user.png?raw=true)
 
 * api接口
-![Image text](https://raw.github.com/lancelee98/repositpry/master/PeopleMange/img-folder/api.jpeg)
+![Image text](https://github.com/lancelee98/PeopleMange/blob/master/img-folder/api.jpg?raw=true)
